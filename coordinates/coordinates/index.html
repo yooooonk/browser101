@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coordinates</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body{
+        margin:0;
+        padding:0;
+        background-color:black;
+      }
+
+      .outter{
+        position:absolute;
+        width:22px;
+        height:22px;
+        border-radius:50%;
+        border : 1px solid white;
+        background-color:rgba(255,255,255,0.3);
+        
+      }
+
+      .inner{
+        position:absolute;
+        top:10px;
+        left:10px;
+        width:10px;
+        height:10px;
+        border-radius:50%;        
+        border : 1.5px solid white;
+      }
+
+      .coordinate{
+        position:absolute;
+        color:white
+      }
+
+      .hor{
+        position:absolute;
+        width:100vw;
+        border-top:1px solid white;
+      }
+
+      .vert{  
+        position:absolute;
+        width:1px;              
+        height:100vh;
+        border-left:1px solid white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='outter'></div>
+    <div class='inner'></div>
+    <div class='coordinate'></div>
+    <div class='hor'></div>
+    <div class='vert'></div>
+
+    <script>
+      const outter = document.querySelector('.outter');
+      const inner = document.querySelector('.inner');
+      const coordinate = document.querySelector('.coordinate');
+      const hor = document.querySelector('.hor');
+      const vert = document.querySelector('.vert');
+
+  console.log(hor)
+      document.addEventListener('mousemove',(e)=>{
+
+        
+        outter.style.left = `${e.pageX-11}px`
+        outter.style.top = `${e.pageY-11}px`
+
+        inner.style.left = `${e.pageX-5}px`
+        inner.style.top = `${e.pageY-5}px`
+
+        hor.style.top = `${e.pageY}px`
+        vert.style.left = `${e.pageX}px`
+
+        coordinate.style.left = `${e.pageX+13}px`
+        coordinate.style.top = `${e.pageY+13}px`
+        coordinate.innerText = `${e.pageX}px,${e.pageY}px`
+      })
+    </script>
+  </body>
+</html>
