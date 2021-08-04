@@ -1,0 +1,49 @@
+body{
+    margin:0;
+    padding:0;
+    background-color:black;
+  }
+
+  .outter{
+    position:absolute;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    border : 1px solid white;
+    background-color:rgba(255,255,255,0.3);
+    
+  }
+
+  .inner{
+    position:absolute;
+    top:10px;
+    left:10px;
+    width:10px;
+    height:10px;
+    border-radius:50%;        
+    border : 1.5px solid white;
+  }
+
+  .coordinate{
+    position:absolute;
+    color:white
+  }
+
+  .hor{
+    position:absolute;
+    width:100vw;
+    border-top:1px solid white;
+  }
+
+  .vert{  
+    position:absolute;
+    width:1px;              
+    height:100vh;
+    border-left:1px solid white;
+  }
+
+  .target{
+      position: absolute;
+      width:60px;
+      height: 60px;
+  }
