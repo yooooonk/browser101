@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Find a Rabbit</title>
     <style>
-      body{
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        align-items:center;
+      body{        
+        background-color:black;
+        text-align:center;
+      }
+
+      img{
+        display:block;
+        margin:auto;
+      }
+
+      button{
+        outline:none;
+        background-color:tomato;
+        color:white;
+        cursor:pointer;
+        padding:5px;
       }
      
       
@@ -22,7 +33,7 @@
     <img class='carrot' src="./img/carrot.png" />
     <img class='carrot' src="./img/carrot.png" />
     <img class='carrot' src="./img/carrot.png" />
-    <img class='rabbit' src="./img/rabbit.png" />
+    <img id='rabbit' src="./img/rabbit.png" />
     <img class='carrot' src="./img/carrot.png" />
     <img class='carrot' src="./img/carrot.png" />
     <img class='carrot' src="./img/carrot.png" />
@@ -32,11 +43,12 @@
     <script>
       // button 이벤트 걸기
       const button = document.querySelector('.button')
-      const rabbit = document.querySelector('.rabbit')
+      const rabbit = document.getElementById('rabbit')
       
       button.addEventListener('click',()=>{
-        const rabbitY = rabbit.getBoundingClientRect().y
-        scrollTo(0,rabbitY)             
+        //const rabbitY = rabbit.getBoundingClientRect().y
+        rabbit.scrollIntoView({behavior: "smooth",block:'center'})
+        
       })  
       
     </script>
