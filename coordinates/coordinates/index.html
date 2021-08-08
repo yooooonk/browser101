@@ -24,17 +24,19 @@
 
   
       document.addEventListener('mousemove',(e)=>{
+        const x = e.clientX;
+        const y = e.clientY;
         
-        target.style.left = `${e.pageX-30}px`
-        target.style.top = `${e.pageY-30}px`
+        target.style.left = `${x}px`
+        target.style.top = `${y}px`
 
 
-        hor.style.top = `${e.pageY}px`
-        vert.style.left = `${e.pageX}px`
+        hor.style.top = `${y}px`
+        vert.style.left = `${x}px`
 
-        coordinate.style.left = `${e.pageX+13}px`
-        coordinate.style.top = `${e.pageY+13}px`
-        coordinate.innerText = `${e.pageX}px,${e.pageY}px`
+        coordinate.style.left = `${x}px`
+        coordinate.style.top = `${y}px`
+        coordinate.innerText = `${x}px,${y}px`
       })
     </script>
   </body>

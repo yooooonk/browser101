@@ -26,13 +26,18 @@ body{
 
   .coordinate{
     position:absolute;
-    color:white
+    color:white;
+    left:50%;
+    top:50%;
+    transform: translate(20px,20px);
+  
   }
 
   .hor{
     position:absolute;
     width:100vw;
     border-top:1px solid white;
+    top:50%;
   }
 
   .vert{  
@@ -40,10 +45,14 @@ body{
     width:1px;              
     height:100vh;
     border-left:1px solid white;
+    left:50%;
   }
 
   .target{
       position: absolute;
       width:60px;
       height: 60px;
+      left:50%;
+      top:50%;
+      transform: translate(-50%,-50%);
   }
