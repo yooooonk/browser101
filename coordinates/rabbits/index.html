@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find a Rabbit</title>
+    <style>
+      body{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+      }
+     
+      
+    </style>
+  </head>
+  <body>
+    <button class='button to-rabbit'>find a rabbit🐇</button>
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='rabbit' src="./img/rabbit.png" />
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='carrot' src="./img/carrot.png" />
+    <img class='carrot' src="./img/carrot.png" />
+
+    
+    <script>
+      // button 이벤트 걸기
+      const button = document.querySelector('.button')
+      const rabbit = document.querySelector('.rabbit')
+      
+      button.addEventListener('click',()=>{
+        const rabbitY = rabbit.getBoundingClientRect().y
+        scrollTo(0,rabbitY)             
+      })  
+      
+    </script>
+  </body>
+</html>
