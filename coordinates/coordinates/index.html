@@ -14,30 +14,6 @@
     <div class='vert'></div>
     <img class="target" src="./img/target.png" />
 
-    <script>
-     /*  const outter = document.querySelector('.outter');
-      const inner = document.querySelector('.inner'); */
-      const coordinate = document.querySelector('.coordinate');
-      const hor = document.querySelector('.hor');
-      const vert = document.querySelector('.vert');
-      const target = document.querySelector('.target');
-
-  
-      document.addEventListener('mousemove',(e)=>{
-        const x = e.clientX;
-        const y = e.clientY;
-        
-        target.style.left = `${x}px`
-        target.style.top = `${y}px`
-
-
-        hor.style.top = `${y}px`
-        vert.style.left = `${x}px`
-
-        coordinate.style.left = `${x}px`
-        coordinate.style.top = `${y}px`
-        coordinate.innerText = `${x}px,${y}px`
-      })
-    </script>
+   
   </body>
 </html>
