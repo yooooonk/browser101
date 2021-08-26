@@ -1,0 +1,44 @@
+*{
+    box-sizing:border-box;
+}
+
+ul{
+    padding:0
+}
+
+body{
+    background-color: beige;
+    text-align: center;
+}
+
+.list{
+    width:400px;
+    margin:auto;
+    background-color: salmon;
+    border-radius: 20px;
+}
+
+.header{
+    height: 48px;
+    padding:8px;
+    font-size:24px;
+    background-color: skyblue;
+    border-radius: 20px 20px 0 0;
+}
+
+.footer{
+    border-radius: 0 0 20px 20px;
+    background-color: skyblue;
+}
+
+.items{
+    height:500px;
+    overflow-y: auto;
+}
+
+.item{
+    display:flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+

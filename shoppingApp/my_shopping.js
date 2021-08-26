@@ -2,23 +2,14 @@ const input = document.querySelector('.input')
 const shoppingList = document.querySelector('.shopping-list')
 const addButton = document.querySelector('.add-button')
 
-const onEnter = (e)=>{
-    const item = e.target.value
 
-    if(!item) return;
-
-    if(e.key === "Enter"){
-        shoppingList.appendChild(newItem(item))
-        e.target.value = ''
-    }
-}
-
-const onClickAddButton = ()=>{
+const onAdd = ()=>{
     const item = input.value
     if(!item) return;
 
     shoppingList.appendChild(newItem(item))
     input.value = ''
+    item.scrollIntoView({block:'center'})
 }
 
 
@@ -31,8 +22,21 @@ const newItem = (item)=>{
     return div;
 }
 
-input.addEventListener('keydown',onEnter)
-addButton.addEventListener('click',onClickAddButton)
+
+
+input.addEventListener('keydown',(e)=>{
+    const item = e.target.value
+
+    if(!item) return;
+
+    if(e.key === "Enter"){
+        onAdd()   
+    }
+})
+addButton.addEventListener('click',()=>{
+    onAdd()
+    
+})
 
 
 // 이벤트 최적화때문에 shopping-list에 이벤트 걸었음
