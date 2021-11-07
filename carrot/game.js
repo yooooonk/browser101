@@ -4,6 +4,7 @@ const playButton = document.querySelector('.play-button');
 const stopIcon = document.querySelector('.fa-stop');
 const startIcon = document.querySelector('.fa-play');
 const score = document.querySelector('.score');
+const endPopup = document.querySelector('.end-popup');
 
 let isPlaying = false;
 let leaveCarrot = 10;
@@ -27,6 +28,7 @@ const endGame = () => {
   changeToPlayButton();
   isStart = false;
   stopTimer();
+  showEndPopup();
 };
 
 const changeToPlayButton = () => {
@@ -76,4 +78,8 @@ const decreaseCarrot = () => {
 const setNewCarrotCount = () => {
   leaveCarrot = 10;
   score.innerHTML = leaveCarrot;
+};
+
+const showEndPopup = () => {
+  endPopup.style.visibility = 'visible';
 };

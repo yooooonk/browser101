@@ -1,15 +1,16 @@
 function Bug(x, y) {
   // TODO : this가 가리키는 것은?
 
-  const carrot = document.createElement('img');
+  const bug = document.createElement('img');
   const ground = document.querySelector('.ground');
-  carrot.src = './img/bug.png';
-  carrot.classList.add('bug');
-  ground.appendChild(carrot);
-  carrot.style.transform = `translate(${x},${y})`;
+  bug.src = './img/bug.png';
+  bug.classList.add('bug');
+  ground.appendChild(bug);
+  bug.style.transform = `translate(${x},${y})`;
 
-  carrot.addEventListener('click', () => {
-    ground.removeChild(carrot);
+  bug.addEventListener('click', () => {
+    ground.removeChild(bug);
+    endGame();
   });
 }
 
