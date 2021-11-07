@@ -7,8 +7,12 @@ function Carrot(x, y) {
   carrot.src = './img/carrot.png';
   carrot.classList.add('carrot');
   ground.appendChild(carrot);
+  carrot.style.transform = `translate(${x},${y})`;
 
-  console.log(x, y);
+  carrot.addEventListener('click', () => {
+    ground.removeChild(carrot);
+    decreaseCarrot();
+  });
 }
 
 // TODO : 프로토타입으로 구현하려면..?
@@ -28,8 +32,8 @@ Carrot.prototype = {
 
 const paintCarrot = () => {
   for (let i = 1; i <= 10; i++) {
-    const x = '101px';
-    const y = '11px';
+    const x = `${Math.random() * 1000}px`;
+    const y = `${Math.random() * 300}px`;
     new Carrot(x, y);
   }
 };

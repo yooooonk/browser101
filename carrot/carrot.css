@@ -63,3 +63,7 @@ body {
   cursor: pointer;
   transform: scale(1.2);
 }
+
+.carrot {
+  position: absolute;
+}

@@ -3,14 +3,17 @@
 const playButton = document.querySelector('.play-button');
 const stopIcon = document.querySelector('.fa-stop');
 const startIcon = document.querySelector('.fa-play');
+const score = document.querySelector('.score');
 
 let isPlaying = false;
+let leaveCarrot = 10;
 
 const startGame = () => {
   isPlaying = true;
   startTimer();
   changeToStopButton();
   paintCarrot();
+  setNewCarrotCount();
 };
 
 const stopGame = () => {
@@ -61,4 +64,15 @@ const startTimer = () => {
 
 const stopTimer = () => {
   clearInterval(interval);
+};
+
+// 줄어드는 당근
+const decreaseCarrot = () => {
+  leaveCarrot--;
+  score.innerHTML = leaveCarrot;
+};
+
+const setNewCarrotCount = () => {
+  leaveCarrot = 10;
+  score.innerHTML = leaveCarrot;
 };
