@@ -59,11 +59,13 @@ body {
   display: none;
 }
 
-.carrot:hover {
+.carrot:hover,
+.bug:hover {
   cursor: pointer;
   transform: scale(1.2);
 }
 
-.carrot {
+.carrot,
+.bug {
   position: absolute;
 }

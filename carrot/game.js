@@ -13,6 +13,7 @@ const startGame = () => {
   startTimer();
   changeToStopButton();
   paintCarrot();
+  paintBug();
   setNewCarrotCount();
 };
 

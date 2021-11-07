@@ -9,26 +9,12 @@ function Carrot(x, y) {
   ground.appendChild(carrot);
   carrot.style.transform = `translate(${x},${y})`;
 
+  // TODO : 프로토타입으로 구현하려면..?
   carrot.addEventListener('click', () => {
     ground.removeChild(carrot);
     decreaseCarrot();
   });
 }
-
-// TODO : 프로토타입으로 구현하려면..?
-Carrot.prototype = {
-  construct: Carrot,
-  init: function () {
-    const self = this;
-    console.log(self.carrot);
-    self.carrot.addEventListener(
-      ('click',
-      () => {
-        console.log('ㅎㅎ');
-      })
-    );
-  }
-};
 
 const paintCarrot = () => {
   for (let i = 1; i <= 10; i++) {
