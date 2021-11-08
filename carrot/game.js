@@ -5,11 +5,15 @@ const stopIcon = document.querySelector('.fa-stop');
 const startIcon = document.querySelector('.fa-play');
 const score = document.querySelector('.score');
 const endPopup = document.querySelector('.end-popup');
+const stopPopup = document.querySelector('.stop-popup');
+const replayButton = document.querySelector('.replay-button');
+const ground = document.querySelector('.ground');
 
 let isPlaying = false;
 let leaveCarrot = 10;
 
 const startGame = () => {
+  clearGround();
   isPlaying = true;
   startTimer();
   changeToStopButton();
@@ -19,6 +23,7 @@ const startGame = () => {
 };
 
 const stopGame = () => {
+  showStopPopup();
   isPlaying = false;
   stopTimer();
   changeToPlayButton();
@@ -49,12 +54,18 @@ playButton.addEventListener('click', () => {
   }
 });
 
+replayButton.addEventListener('click', () => {
+  closeEndPopup();
+  startGame();
+});
+
 // 타이머
 const timer = document.querySelector('.timer');
 let timeCount = 10;
 let interval;
 
 const startTimer = () => {
+  timeCount = 10;
   interval = setInterval(() => {
     if (timeCount <= 0) {
       endGame();
@@ -82,4 +93,22 @@ const setNewCarrotCount = () => {
 
 const showEndPopup = () => {
   endPopup.style.visibility = 'visible';
+};
+
+const closeEndPopup = () => {
+  endPopup.style.visibility = 'hidden';
+};
+
+const clearGround = () => {
+  while (ground.hasChildNodes()) {
+    ground.removeChild(ground.firstChild);
+  }
+};
+
+const replayGame = () => {
+  console.log('다시');
+};
+
+const showStopPopup = () => {
+  stopPopup.style.visibility = 'visible';
 };

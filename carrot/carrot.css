@@ -11,7 +11,7 @@ body {
   height: 100vh;
 }
 
-.play-button {
+.button-box {
   margin: auto;
   border: 3.5px solid black;
   width: 50px;
@@ -70,7 +70,7 @@ body {
   position: absolute;
 }
 
-.end-popup {
+.popup {
   position: absolute;
   top: 0;
   left: 0;
@@ -80,6 +80,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.end-popup,
+.stop-popup {
   visibility: hidden;
 }
 

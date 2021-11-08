@@ -3,7 +3,7 @@ function Carrot(x, y) {
   // TODO : this가 가리키는 것은?
 
   const carrot = document.createElement('img');
-  const ground = document.querySelector('.ground');
+
   carrot.src = './img/carrot.png';
   carrot.classList.add('carrot');
   ground.appendChild(carrot);
