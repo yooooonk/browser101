@@ -1,11 +1,65 @@
 const CARROT_SIZE = 80;
+const BUG_COUNT = 5;
+const CARROT_COUNT = 5;
+const GAME_DURATION = 5;
 
 const field = document.querySelector('.ground');
 const fieldRect = field.getBoundingClientRect();
+const gameButton = document.querySelector('.play-button');
+const gameScore = document.querySelector('.score');
+const timer = document.querySelector('.timer');
+
+let stared = false;
+let score = 0;
+let timer = undefined;
+
+gameButton.addEventListener('click', () => {
+  if (stared) {
+    stopGame();
+  } else {
+    startGame();
+  }
+
+  stared = !stared;
+});
+
+function startGame() {
+  initGame();
+  showStopButton();
+}
+
+function showStopButton() {
+  const icon = gameButton.querySelector('.fa-play');
+  icon.classList.add('fa-stop');
+  icon.classList.remove('fa-play');
+}
+
+function startTimer() {
+  let timeCount = GAME_DURATION;
+  updateTimerText(timeCount);
+  interval = setInterval(() => {
+    if (timeCount <= 0) {
+      // endGame(); - timer는 timer 로직만?
+      clearInterval(interval);
+      return;
+    }
+
+    updateTimerText(--timeCount);
+  }, 1000);
+}
+
+function updateTimerText(timerCount) {
+  timer.innerHTML = timeCount;
+}
+
+function stopGame() {
+  console.log('멈춰');
+}
+
+function changeButtonToPlay() {}
 
 function initGame() {
-  //벌레와 당근 생성, filed에 추가
-  console.log(fieldRect);
+  field.innerHTML = '';
   addItem('carrot', 5, 'img/carrot.png');
   addItem('bug', 5, 'img/bug.png');
 }
@@ -35,5 +89,3 @@ function addItem(className, count, imgPath) {
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
-
-initGame();
