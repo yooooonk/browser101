@@ -14,52 +14,26 @@
     />
   </head>
   <body>
-    <section class="game">
+    <section class="background">
+      <!-- game -->
       <header class="game_header">
-        <button class="game_button">
+        <button class="play-button button">
+          <!--game_button-->
           <i class="fas fa-play"></i>
         </button>
-        <span class="game_timer"></span>
-        <span class="game_score"></span>
+        <span class="timer">10</span>
+        <span class="score">10</span>
       </header>
-      <section class="game_field"></section>
+      <section class="ground"></section>
+      <!--game_filed-->
     </section>
-    <section class="pop-up">
-      <button class="pop-up_refresh">
-        <i class="fas fa-retweet"></i>
-      </button>
-      <span class="pop-up_message">hello</span>
+    <section class="popup popup-hide">
+      <div class="popup_box">
+        <button class="popup_replay-button button">
+          <i class="fas fa-retweet"></i>
+        </button>
+        <span class="popup_message">hello</span>
+      </div>
     </section>
-    {#
-    <div class="background">
-      <div class="button-box play-button">
-        <i class="fas fa-stop"></i>
-      </div>
-      <div class="timer">10</div>
-      <div class="score">0</div>
-      <div class="ground"></div>
-
-      <div class="end-popup popup">
-        <div class="popup-box">
-          <h3>게임이 끝났습니다. 다시 하시겠습니까?</h3>
-          <div class="button-box replay-button">
-            <i class="fas fa-retweet"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="stop-popup popup">
-        <div class="popup-box">
-          <h3>다시 하시겠습니까?</h3>
-          <div class="button-box replay-button">
-            <i class="fas fa-retweet"></i>
-          </div>
-          <div class="button-box play-button">
-            <i class="fas fa-play"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    #}
   </body>
 </html>
