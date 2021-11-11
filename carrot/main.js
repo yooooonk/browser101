@@ -11,6 +11,12 @@ const gameTimer = document.querySelector('.timer');
 const popup = document.querySelector('.popup');
 const replayButton = document.querySelector('.popup_replay-button');
 
+const carrotSound = new Audio('./sound/carrot_pull.mp3');
+const bgSound = new Audio('./sound/bg.mp3');
+const bugSound = new Audio('./sound/bug_pull.mp3');
+const gameWin = new Audio('./sound/game_win.mp3');
+const altSound = new Audio('./sound/alert.wav');
+
 let stared = false;
 let score = 0;
 let timer = undefined;
@@ -40,13 +46,14 @@ function onFiledClick(e) {
     target.remove();
     score++;
     updateScore();
-
+    playSound(carrotSound);
     if (score === CARROT_COUNT) {
       finishGame(true);
     }
   } else if (target.matches('.bug')) {
     stopTimer();
     finishGame(false);
+    playSound(bugSound);
   }
 }
 
@@ -64,8 +71,16 @@ function startGame() {
   initGame();
   showStopButton();
   startTimer();
+  playSound(bgSound);
 }
 
+function playSound(sound) {
+  sound.play();
+}
+
+function stopSound(sound) {
+  sound.pause();
+}
 function showStopButton() {
   const icon = gameButton.querySelector('.fas');
   icon.classList.add('fa-stop');
@@ -96,6 +111,7 @@ function stopGame() {
   changeButtonToPlay();
   showPopupWithText('Replay?');
   stared = false;
+  stopSound(bgSound);
 }
 
 function stopTimer() {
