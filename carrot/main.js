@@ -7,8 +7,11 @@ const field = document.querySelector('.ground');
 const fieldRect = field.getBoundingClientRect();
 const gameButton = document.querySelector('.play-button');
 const gameScore = document.querySelector('.score');
-const timer = document.querySelector('.timer');
+const gameTimer = document.querySelector('.timer');
+const popup = document.querySelector('.popup');
+const replayButton = document.querySelector('.popup_replay-button');
 
+console.log(replayButton);
 let stared = false;
 let score = 0;
 let timer = undefined;
@@ -23,9 +26,15 @@ gameButton.addEventListener('click', () => {
   stared = !stared;
 });
 
+replayButton.addEventListener('click', () => {
+  stared = true;
+  startGame();
+});
+
 function startGame() {
   initGame();
   showStopButton();
+  startTimer();
 }
 
 function showStopButton() {
@@ -35,12 +44,13 @@ function showStopButton() {
 }
 
 function startTimer() {
+  closePopup();
   let timeCount = GAME_DURATION;
-  updateTimerText(timeCount);
-  interval = setInterval(() => {
+  timer = setInterval(() => {
+    updateTimerText(timeCount);
     if (timeCount <= 0) {
       // endGame(); - timer는 timer 로직만?
-      clearInterval(interval);
+      stopTimer();
       return;
     }
 
@@ -49,14 +59,37 @@ function startTimer() {
 }
 
 function updateTimerText(timerCount) {
-  timer.innerHTML = timeCount;
+  gameTimer.innerText = timerCount;
 }
 
 function stopGame() {
-  console.log('멈춰');
+  stopTimer();
+  changeButtonToPlay();
+  showPopupWithText('Replay?');
+  stared = false;
 }
 
-function changeButtonToPlay() {}
+function stopTimer() {
+  {
+    clearInterval(timer);
+  }
+}
+
+function changeButtonToPlay() {
+  const icon = gameButton.querySelector('.fa-stop');
+  icon.classList.add('fa-play');
+  icon.classList.remove('fa-stop');
+}
+
+function showPopupWithText(text) {
+  popup.classList.remove('popup-hide');
+
+  document.querySelector('.popup_message').innerText = text;
+}
+
+function closePopup() {
+  popup.classList.add('popup-hide');
+}
 
 function initGame() {
   field.innerHTML = '';
