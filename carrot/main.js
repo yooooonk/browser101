@@ -11,7 +11,6 @@ const gameTimer = document.querySelector('.timer');
 const popup = document.querySelector('.popup');
 const replayButton = document.querySelector('.popup_replay-button');
 
-console.log(replayButton);
 let stared = false;
 let score = 0;
 let timer = undefined;
@@ -31,14 +30,44 @@ replayButton.addEventListener('click', () => {
   startGame();
 });
 
+field.addEventListener('click', onFiledClick);
+
+function onFiledClick(e) {
+  if (!stared) return;
+
+  const target = e.target;
+  if (target.matches('.carrot')) {
+    target.remove();
+    score++;
+    updateScore();
+
+    if (score === CARROT_COUNT) {
+      finishGame(true);
+    }
+  } else if (target.matches('.bug')) {
+    stopTimer();
+    finishGame(false);
+  }
+}
+
+function finishGame(win) {
+  stared = false;
+  showPopupWithText(win ? 'You won' : 'You Lost');
+}
+
+function updateScore() {
+  gameScore.innerText = CARROT_COUNT - score;
+}
 function startGame() {
+  score = 0;
+  updateScore();
   initGame();
   showStopButton();
   startTimer();
 }
 
 function showStopButton() {
-  const icon = gameButton.querySelector('.fa-play');
+  const icon = gameButton.querySelector('.fas');
   icon.classList.add('fa-stop');
   icon.classList.remove('fa-play');
 }
@@ -76,7 +105,7 @@ function stopTimer() {
 }
 
 function changeButtonToPlay() {
-  const icon = gameButton.querySelector('.fa-stop');
+  const icon = gameButton.querySelector('.fas');
   icon.classList.add('fa-play');
   icon.classList.remove('fa-stop');
 }
