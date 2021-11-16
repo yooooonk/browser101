@@ -1,9 +1,11 @@
 # browser101
 
-1. Web API
+# Web API
 
-2. DOM
+# DOM
 
-3. 당근게임 만들기
+# 당근게임 만들기
 
 - clearTimeout이 안됨
+
+## 리팩토링

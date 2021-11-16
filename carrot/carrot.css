@@ -105,9 +105,6 @@ button {
   margin: 1rem;
 }
 
-/* 
-
-
 .carrot:hover,
 .bug:hover {
   cursor: pointer;
@@ -116,13 +113,5 @@ button {
 
 .carrot,
 .bug {
-  position: absolute;
+  transition: transform 100ms ease-in;
 }
-
-
-.end-popup,
-.stop-popup {
-  visibility: hidden;
-}
-
- */

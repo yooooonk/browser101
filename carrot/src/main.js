@@ -1,15 +1,12 @@
-const CARROT_SIZE = 80;
+import PopUp from './popup.js';
+
 const BUG_COUNT = 5;
 const CARROT_COUNT = 5;
 const GAME_DURATION = 5;
 
-const field = document.querySelector('.ground');
-const fieldRect = field.getBoundingClientRect();
 const gameButton = document.querySelector('.play-button');
 const gameScore = document.querySelector('.score');
 const gameTimer = document.querySelector('.timer');
-const popup = document.querySelector('.popup');
-const replayButton = document.querySelector('.popup_replay-button');
 
 const carrotSound = new Audio('./sound/carrot_pull.mp3');
 const bgSound = new Audio('./sound/bg.mp3');
@@ -21,6 +18,12 @@ let stared = false;
 let score = 0;
 let timer = undefined;
 
+const gameFinishBanner = new PopUp();
+
+gameFinishBanner.setClickListener(() => {
+  startGame();
+});
+
 gameButton.addEventListener('click', () => {
   if (stared) {
     stopGame();
@@ -31,35 +34,15 @@ gameButton.addEventListener('click', () => {
   stared = !stared;
 });
 
-replayButton.addEventListener('click', () => {
-  stared = true;
-  startGame();
-});
-
 field.addEventListener('click', onFiledClick);
 
 function onFiledClick(e) {
   if (!stared) return;
-
-  const target = e.target;
-  if (target.matches('.carrot')) {
-    target.remove();
-    score++;
-    updateScore();
-    playSound(carrotSound);
-    if (score === CARROT_COUNT) {
-      finishGame(true);
-    }
-  } else if (target.matches('.bug')) {
-    stopTimer();
-    finishGame(false);
-    playSound(bugSound);
-  }
 }
 
 function finishGame(win) {
   stared = false;
-  showPopupWithText(win ? 'You won' : 'You Lost');
+  gameFinishBanner.showWithText(win ? 'You won' : 'You Lost');
 }
 
 function updateScore() {
@@ -88,7 +71,7 @@ function showStopButton() {
 }
 
 function startTimer() {
-  closePopup();
+  gameFinishBanner.hide();
   let timeCount = GAME_DURATION;
   timer = setInterval(() => {
     updateTimerText(timeCount);
@@ -126,43 +109,43 @@ function changeButtonToPlay() {
   icon.classList.remove('fa-stop');
 }
 
-function showPopupWithText(text) {
-  popup.classList.remove('popup-hide');
+// function showPopupWithText(text) {
+//   popup.classList.remove('popup-hide');
 
-  document.querySelector('.popup_message').innerText = text;
-}
+//   document.querySelector('.popup_message').innerText = text;
+// }
 
-function closePopup() {
-  popup.classList.add('popup-hide');
-}
+// function closePopup() {
+//   popup.classList.add('popup-hide');
+// }
 
-function initGame() {
-  field.innerHTML = '';
-  addItem('carrot', 5, 'img/carrot.png');
-  addItem('bug', 5, 'img/bug.png');
-}
+// function initGame() {
+//   field.innerHTML = '';
+//   addItem('carrot', 5, 'img/carrot.png');
+//   addItem('bug', 5, 'img/bug.png');
+// }
 
-function addItem(className, count, imgPath) {
-  const x1 = 0;
-  const y1 = 0;
+// function addItem(className, count, imgPath) {
+//   const x1 = 0;
+//   const y1 = 0;
 
-  const x2 = fieldRect.width - CARROT_SIZE;
-  const y2 = fieldRect.height - CARROT_SIZE;
+//   const x2 = fieldRect.width - CARROT_SIZE;
+//   const y2 = fieldRect.height - CARROT_SIZE;
 
-  for (let i = 0; i < count; i++) {
-    const item = document.createElement('img');
-    item.setAttribute('class', className);
-    item.setAttribute('src', imgPath);
-    item.style.position = 'absolute';
-    const x = randomNumber(x1, x2);
-    const y = randomNumber(y1, y2);
+//   for (let i = 0; i < count; i++) {
+//     const item = document.createElement('img');
+//     item.setAttribute('class', className);
+//     item.setAttribute('src', imgPath);
+//     item.style.position = 'absolute';
+//     const x = randomNumber(x1, x2);
+//     const y = randomNumber(y1, y2);
 
-    item.style.left = `${x}px`;
-    item.style.top = `${y}px`;
+//     item.style.left = `${x}px`;
+//     item.style.top = `${y}px`;
 
-    field.appendChild(item);
-  }
-}
+//     field.appendChild(item);
+//   }
+// }
 
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
