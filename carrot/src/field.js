@@ -11,6 +11,16 @@ export default class Field {
 
     this.field = document.querySelector('.ground');
     this.fieldRect = this.field.getBoundingClientRect();
+
+    // this 바인딩!!!
+    //this.onClick = this.onClick.bind(this);
+    //this.field.addEventListener('click', (event) => this.onClick(event));
+    this.field.addEventListener('click', this.onClick);
+
+    /*
+    this.field.addEventListener('click',this.onClick)
+    -> 이렇게 하면 onItemclick이 undefined으로 나오는데, click의 콜백으로 전달할 때 클래스의 정보는 안넘어가기 때문
+    
     this.field.addEventListener('click', (event) => {
       const target = event.target;
       if (target.matches('.carrot')) {
@@ -21,7 +31,7 @@ export default class Field {
         playBug();
         this.onItemClick && this.onItemClick('bug');
       }
-    }); //this.onClick
+    }); */ //this.onClick
   }
   init() {
     this.field.innerHTML = '';
@@ -52,9 +62,9 @@ export default class Field {
   _randomNumber(min, max) {
     return Math.random() * (max - min) + min;
   }
-  onClick(event) {
+  onClick = (event) => {
+    // arrow function은 자동으로 this바인딩
     const target = event.target;
-    console.log(this.onItemClick, 'itemClick');
     if (target.matches('.carrot')) {
       target.remove();
       playCarrot();
@@ -63,7 +73,7 @@ export default class Field {
       this.onItemClick && this.onItemClick('bug');
       playBug();
     }
-  }
+  };
 
   setClickListener(onItemClick) {
     this.onItemClick = onItemClick;
