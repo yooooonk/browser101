@@ -1,5 +1,7 @@
 'use strict';
 
+import { playCarrot, playBug } from './sound.js';
+
 const CARROT_SIZE = 80;
 
 export default class Field {
@@ -9,13 +11,14 @@ export default class Field {
 
     this.field = document.querySelector('.ground');
     this.fieldRect = this.field.getBoundingClientRect();
-    this.field.addEventListener('click', () => {
+    this.field.addEventListener('click', (event) => {
       const target = event.target;
       if (target.matches('.carrot')) {
         target.remove();
-        //playSound(carrotSound);
+        playCarrot();
         this.onItemClick && this.onItemClick('carrot');
       } else if (target.matches('.bug')) {
+        playBug();
         this.onItemClick && this.onItemClick('bug');
       }
     }); //this.onClick
@@ -54,10 +57,11 @@ export default class Field {
     console.log(this.onItemClick, 'itemClick');
     if (target.matches('.carrot')) {
       target.remove();
-      //playSound(carrotSound);
+      playCarrot();
       this.onItemClick && this.onItemClick('carrot');
     } else if (target.matches('.bug')) {
       this.onItemClick && this.onItemClick('bug');
+      playBug();
     }
   }
 
