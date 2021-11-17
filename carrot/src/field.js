@@ -9,7 +9,16 @@ export default class Field {
 
     this.field = document.querySelector('.ground');
     this.fieldRect = this.field.getBoundingClientRect();
-    this.field.addEventListener('click', this.onClick);
+    this.field.addEventListener('click', () => {
+      const target = event.target;
+      if (target.matches('.carrot')) {
+        target.remove();
+        //playSound(carrotSound);
+        this.onItemClick && this.onItemClick('carrot');
+      } else if (target.matches('.bug')) {
+        this.onItemClick && this.onItemClick('bug');
+      }
+    }); //this.onClick
   }
   init() {
     this.field.innerHTML = '';
@@ -42,9 +51,10 @@ export default class Field {
   }
   onClick(event) {
     const target = event.target;
+    console.log(this.onItemClick, 'itemClick');
     if (target.matches('.carrot')) {
       target.remove();
-      playSound(carrotSound);
+      //playSound(carrotSound);
       this.onItemClick && this.onItemClick('carrot');
     } else if (target.matches('.bug')) {
       this.onItemClick && this.onItemClick('bug');

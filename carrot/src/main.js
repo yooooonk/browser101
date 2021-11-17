@@ -1,4 +1,5 @@
 import PopUp from './popup.js';
+import Field from './field.js';
 
 const BUG_COUNT = 5;
 const CARROT_COUNT = 5;
@@ -24,6 +25,11 @@ gameFinishBanner.setClickListener(() => {
   startGame();
 });
 
+const gameField = new Field(CARROT_COUNT, BUG_COUNT);
+gameField.setClickListener((item) => {
+  onFiledClick(item);
+});
+
 gameButton.addEventListener('click', () => {
   if (stared) {
     stopGame();
@@ -34,10 +40,24 @@ gameButton.addEventListener('click', () => {
   stared = !stared;
 });
 
-field.addEventListener('click', onFiledClick);
+//field.addEventListener('click', onFiledClick);
 
-function onFiledClick(e) {
+function onFiledClick(target) {
   if (!stared) return;
+
+  if (target === 'carrot') {
+    target.remove();
+    score++;
+    updateScore();
+    playSound(carrotSound);
+    if (score === CARROT_COUNT) {
+      finishGame(true);
+    }
+  } else if (target === 'bug') {
+    stopTimer();
+    finishGame(false);
+    playSound(bugSound);
+  }
 }
 
 function finishGame(win) {
@@ -51,7 +71,7 @@ function updateScore() {
 function startGame() {
   score = 0;
   updateScore();
-  initGame();
+  gameField.init(CARROT_COUNT, BUG_COUNT);
   showStopButton();
   startTimer();
   playSound(bgSound);
@@ -91,8 +111,9 @@ function updateTimerText(timerCount) {
 
 function stopGame() {
   stopTimer();
+
   changeButtonToPlay();
-  showPopupWithText('Replay?');
+  gameFinishBanner.showWithText('Replay?');
   stared = false;
   stopSound(bgSound);
 }
