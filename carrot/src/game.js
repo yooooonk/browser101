@@ -1,114 +1,113 @@
-// 재생버튼
+'use strict';
 
-const playButton = document.querySelector('.play-button');
-const stopIcon = document.querySelector('.fa-stop');
-const startIcon = document.querySelector('.fa-play');
-const score = document.querySelector('.score');
-const endPopup = document.querySelector('.end-popup');
-const stopPopup = document.querySelector('.stop-popup');
-const replayButton = document.querySelector('.replay-button');
-const ground = document.querySelector('.ground');
+import Field from './field.js';
+import * as sound from './sound.js';
 
-let isPlaying = false;
-let leaveCarrot = 10;
+export default class Game {
+  constructor(gameDuration, carrotCount, bugCount) {
+    this.gameDuratoin = gameDuration;
+    this.carrotCount = carrotCount;
+    this.bugCount = bugCount;
 
-const startGame = () => {
-  clearGround();
-  isPlaying = true;
-  startTimer();
-  changeToStopButton();
-  paintCarrot();
-  paintBug();
-  setNewCarrotCount();
-};
+    this.gameButton = document.querySelector('.play-button');
+    this.stopIcon = document.querySelector('.fa-stop');
+    this.startIcon = document.querySelector('.fa-play');
+    this.scoreBoard = document.querySelector('.score');
+    this.timerBoard = document.querySelector('.timer');
+    this.endPopup = document.querySelector('.end-popup');
+    this.stopPopup = document.querySelector('.stop-popup');
+    this.regameButton = document.querySelector('.replay-button');
+    this.ground = document.querySelector('.ground');
 
-const stopGame = () => {
-  showStopPopup();
-  isPlaying = false;
-  stopTimer();
-  changeToPlayButton();
-};
+    this.timer = undefined;
+    this.score = 0;
+    this.isPlaying = false;
 
-const endGame = () => {
-  changeToPlayButton();
-  isStart = false;
-  stopTimer();
-  showEndPopup();
-};
-
-const changeToPlayButton = () => {
-  stopIcon.style.display = 'none';
-  startIcon.style.display = 'inline';
-};
-
-const changeToStopButton = () => {
-  stopIcon.style.display = 'inline';
-  startIcon.style.display = 'none';
-};
-
-playButton.addEventListener('click', () => {
-  if (isPlaying) {
-    stopGame();
-  } else {
-    startGame();
+    this.gameButton.addEventListener('click', () => {
+      if (this.isPlaying) {
+        this.stop();
+      } else {
+        this.start();
+      }
+    });
+    this.gameField = new Field(this.carrotCount, this.bugCount);
+    this.gameField.setClickListener((item) => {
+      this.onFiledClick(item);
+    });
   }
-});
 
-replayButton.addEventListener('click', () => {
-  closeEndPopup();
-  startGame();
-});
+  onFiledClick = (target) => {
+    // this 바인딩을 위해 arrow function
+    if (!this.isPlaying) return;
 
-// 타이머
-const timer = document.querySelector('.timer');
-let timeCount = 10;
-let interval;
+    if (target === 'carrot') {
+      this.score++;
+      //this.updateScore();
+      this.scoreBoard.innerText = this.carrotCount - this.score;
 
-const startTimer = () => {
-  timeCount = 10;
-  interval = setInterval(() => {
-    if (timeCount <= 0) {
-      endGame();
-    } else {
-      --timeCount;
+      if (this.score === this.carrotCount) {
+        this.finishGame(true);
+      }
+    } else if (target === 'bug') {
+      //stopTimer();
+      this.finishGame(false);
+      //playSound(bugSound);
     }
-    timer.innerHTML = timeCount;
-  }, 1000);
-};
+  };
 
-const stopTimer = () => {
-  clearInterval(interval);
-};
-
-// 줄어드는 당근
-const decreaseCarrot = () => {
-  leaveCarrot--;
-  score.innerHTML = leaveCarrot;
-};
-
-const setNewCarrotCount = () => {
-  leaveCarrot = 10;
-  score.innerHTML = leaveCarrot;
-};
-
-const showEndPopup = () => {
-  endPopup.style.visibility = 'visible';
-};
-
-const closeEndPopup = () => {
-  endPopup.style.visibility = 'hidden';
-};
-
-const clearGround = () => {
-  while (ground.hasChildNodes()) {
-    ground.removeChild(ground.firstChild);
+  setGameStopListner(onGameStop) {
+    this.onGameStop = onGameStop;
   }
-};
 
-const replayGame = () => {
-  console.log('다시');
-};
+  start() {
+    this.isPlaying = true;
+    this.gameField.init();
+    this.startTimer();
+    this.changeToStopButton();
+    this.setTimerAndScore();
+  }
 
-const showStopPopup = () => {
-  stopPopup.style.visibility = 'visible';
-};
+  setTimerAndScore() {
+    this.scoreBoard.innerText = this.carrotCount;
+    this.timerBoard.innerText = this.gameDuratoin;
+  }
+
+  stop() {
+    console.log('stop');
+    this.isPlaying = false;
+    this.onGameStop && this.onGameStop();
+  }
+
+  finishGame(win) {
+    this.isPlaying = false;
+
+    sound.playGameWin();
+  }
+  // timer
+  startTimer() {
+    this.timer = setInterval(() => {
+      if (this.gameDuratoin <= 0) {
+        this.finishGame(false);
+      } else {
+        --this.gameDuratoin;
+      }
+      this.timerBoard.innerText = this.gameDuratoin;
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.timer);
+  }
+
+  // button
+  changeTogameButton() {
+    this.stopIcon.style.display = 'none';
+    this.startIcon.style.display = 'inline';
+  }
+
+  changeToStopButton() {
+    const icon = this.gameButton.querySelector('.fas');
+    icon.classList.add('fa-stop');
+    icon.classList.remove('fa-play');
+  }
+}
