@@ -10,9 +10,9 @@ const gameFinishBanner = new PopUp();
 
 //const game = new Game(GAME_DURATION, CARROT_COUNT, BUG_COUNT);
 const game = new GameBuilder()
-  .gameDuration(GAME_DURATION)
-  .carrotcount(CARROT_COUNT)
-  .bugCount(BUG_COUNT)
+  .setGameDuration(GAME_DURATION)
+  .setCarrotcount(CARROT_COUNT)
+  .setBugcount(BUG_COUNT)
   .build();
 
 gameFinishBanner.setClickListener(() => {
